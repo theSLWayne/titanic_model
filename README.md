@@ -16,7 +16,54 @@ pip install kaggle
 kaggle competitions download -c titanic
 ```
 
-## Files  
+## Run the server  
+
+```
+python app.py
+```
+
+## API  
+
+A RESTful API is used to simulate deployment of a model.  
+
+#### Request
+
+- In order to make a prediction, call a PUT request with a dictionary with all these attributes: ['PassengerId', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked']  
+For an example,  
+```json
+{
+	"PassengerId": 1040, 
+	"Pclass": 1, 
+	"Name": "Smith, Mr. Steven", 
+	"Sex": "male", 
+	"Age": 32, 
+	"SibSp": 0, 
+	"Parch": 2, 
+	"Ticket": "", 
+	"Fare": 10.0, 
+	"Cabin": "", 
+	"Embarked": "Q"
+}
+```
+
+#### Response
+
+- A valid request will result in a dictionary including only one attribute, "prediction" and its value will be the prediction from the values you parsed with the PUT request. If the prediction is 1, the person survived and if it was 0, the person did not survive.  
+This is an example response from the model.  
+```json
+{
+    "prediction": 0
+}
+```
+
+## Files
+
+1. *create_model.py*: Python script that is responisble for transforming the training dataset (using a data transformation pipeline), training the model, saving both pipeline and model as binary files.
+2. *app.py*: Python script which contains the Flask server. A basic deployment of the model.
+3. *model.pkl*: Binary file containing the trained model.
+4. *pipeline.pkl*: Binary file containing data transformation pipeline
+
+## Data Files  
 
 The original dataset comes with 3 files.
 1. *train.csv*: The dataset that should be used for training the model.
