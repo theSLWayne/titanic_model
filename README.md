@@ -32,17 +32,17 @@ A RESTful API is used to simulate deployment of a model.
 For an example,  
 ```json
 {
-	"PassengerId": 1040, 
-	"Pclass": 1, 
-	"Name": "Smith, Mr. Steven", 
-	"Sex": "male", 
-	"Age": 32, 
-	"SibSp": 0, 
-	"Parch": 2, 
-	"Ticket": "", 
-	"Fare": 10.0, 
-	"Cabin": "", 
-	"Embarked": "Q"
+	"PassengerId": [1987, 1123], 
+	"Pclass": [3, 2], 
+	"Name": ["Smith, Mr. Steven", "Carey, Ms. Jenna"], 
+	"Sex": ["female", "male"], 
+	"Age": [24, 23], 
+	"SibSp": [0, 0], 
+	"Parch": [0, 2], 
+	"Ticket": ["", ""], 
+	"Fare": [112.0, 67.0], 
+	"Cabin": ["", ""], 
+	"Embarked": ["S", "Q"]
 }
 ```
 
@@ -52,7 +52,10 @@ For an example,
 This is an example response from the model.  
 ```json
 {
-    "prediction": 0
+    "predictions": {
+        "1": 1,
+        "2": 0
+    }
 }
 ```
 
@@ -66,7 +69,9 @@ curl -XPUT -H "Content-type: application/json" -d '{"PassengerId": 1987, "Pclass
 Then you'll recieve something like the following:  
 ```
 {
-    "prediction": 1
+    "predictions": {
+        "1": 1
+    }
 }
 ```
 
@@ -74,7 +79,7 @@ Then you'll recieve something like the following:
 
 1. *create_model.py*: Python script that is responisble for transforming the training dataset (using a data transformation pipeline), training the model, saving both pipeline and model as binary files.
 2. *app.py*: Python script which contains the Flask server. A basic deployment of the model.
-3. *model.pkl*: Binary file containing the trained model.
+3. *model.pkl*: Binary file containing the trained SVM model.
 4. *pipeline.pkl*: Binary file containing data transformation pipeline
 
 ## Data Files  
