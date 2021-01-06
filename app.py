@@ -11,13 +11,22 @@ api = Api(app)
 model = joblib.load('model.pkl')
 pipeline = joblib.load('pipeline.pkl')
 
+def islist(obj):
+  return True if ("list" in str(type(obj))) else False
+
 class Preds(Resource):
   def put(self):
     json_ = request.json
-    entry = pd.DataFrame([json_])
+    if islist(json_['PassengerId']):
+      entry = pd.DataFrame(json_)
+    else:
+      entry = pd.DataFrame([json_])
     entry_transformed = pipeline.transform(entry)
     prediction = model.predict(entry_transformed)
-    return {'prediction': int(prediction[0])}, 200
+    res = {'predictions': {}}
+    for i in range(len(prediction)):
+      res['predictions'][i + 1] = int(prediction[i])
+    return res, 200 # {'prediction': int(prediction[0])}
 
 api.add_resource(Preds, '/predict')
 
