@@ -56,6 +56,20 @@ This is an example response from the model.
 }
 ```
 
+#### Example  
+
+Create a PUT request using __curl__:
+```
+curl -XPUT -H "Content-type: application/json" -d '{"PassengerId": 1987, "Pclass": 3, "Name": "Sharapova, Ms. Maria", "Sex": "female", "Age": 24, "SibSp": 0, "Parch": 0, "Ticket": "", "Fare": 112.0, "Cabin": "", "Embarked": "S"}' 'http://127.0.0.1:5000/predict'
+```  
+
+Then you'll recieve something like the following:  
+```
+{
+    "prediction": 1
+}
+```
+
 ## Files
 
 1. *create_model.py*: Python script that is responisble for transforming the training dataset (using a data transformation pipeline), training the model, saving both pipeline and model as binary files.
