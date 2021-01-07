@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
+import pickle
 
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.pipeline import Pipeline
@@ -40,8 +41,10 @@ cat_pipeline = Pipeline(cat_transfs)
 all_transfs = [('numeric', num_pipeline, num_cols), ('categorical', cat_pipeline, cat_cols), ('drops', 'drop', drop_cols)]
 full_pipeline = ColumnTransformer(all_transfs, remainder = 'passthrough')
 
+# Transforming the training dataset
 X_train_transformed = full_pipeline.fit_transform(X_train)
 
+# Tensorflow model
 model = tf.keras.Sequential()
 
 model.add(tf.keras.layers.Dense(5, activation = 'relu'))
@@ -49,8 +52,14 @@ model.add(tf.keras.layers.Dense(32, activation = 'relu'))
 model.add(tf.keras.layers.Dense(64, activation = 'relu'))
 model.add(tf.keras.layers.Dense(1, activation = 'sigmoid'))
 
+# Compiling the model
 model.compile(optimizer = tf.keras.optimizers.Adam(learning_rate = 0.001), loss = tf.keras.losses.BinaryCrossentropy(), metrics = ['accuracy'])
 
+# Training the model
 model.fit(X_train_transformed, y_train, epochs = 25, verbose = 2)
 
+# Save tensorflow model
 model.save('titanic_model')
+
+# Save the pipeline
+pickle.dump(full_pipeline, open('pipeline.pkl', 'wb'))
