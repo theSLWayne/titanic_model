@@ -1,20 +1,6 @@
-# Predict Survival on Titanic  
+# Scikit-learn model for Titanic Dataset
 
-Getting, analyzing, preprocessing the Titanic dataset which can be found [here](https://www.kaggle.com/c/titanic/data).
-
-## How-to get the dataset  
-
-- Install Kaggle Python package
-
-```
-pip install kaggle
-```
-
-- Download dataset using Kaggle API
-
-```
-kaggle competitions download -c titanic
-```
+This model is created with Scikit-learn.
 
 ## Run the server  
 
@@ -34,7 +20,7 @@ For an example,
 {
 	"PassengerId": [1987, 1123], 
 	"Pclass": [3, 2], 
-	"Name": ["Smith, Mr. Steven", "Carey, Ms. Jenna"], 
+	"Name": ["Carey, Ms. Jenna", "Smith, Mr. Steven"], 
 	"Sex": ["female", "male"], 
 	"Age": [24, 23], 
 	"SibSp": [0, 0], 
@@ -81,20 +67,3 @@ Then you'll recieve something like the following:
 2. *app.py*: Python script which contains the Flask server. A basic deployment of the model.
 3. *model.pkl*: Binary file containing the trained SVM model.
 4. *pipeline.pkl*: Binary file containing data transformation pipeline
-
-## Data Files  
-
-The original dataset comes with 3 files.
-1. *train.csv*: The dataset that should be used for training the model.
-2. *test.csv*: The dataset taht should be used to evaluate the model. However, It does not contain labels. The test set is only to be used for submitting predictions to the [Kaggle Titanic competition](https://www.kaggle.com/c/titanic).
-3. *gender_submission.csv*: An example of what a submission file should look like. Only applicable for the Kaggle competition.
-
-## Models
-
-Here are the models trained to the dataset and their Root Mean Squared Errors
-
-| Model                                  | RMSE               |
-|----------------------------------------|--------------------|
-| Support Vector Machine Classifier(SVC) | 0.3955054753168236 |
-| Random Forest Classifier               | 0.454647017602145  |
-| Gaussian Naive Bayes                   | 0.4901259671626783 |
