@@ -67,7 +67,7 @@ curl -XPUT -H "Content-type: application/json" -d '{"PassengerId": 1987, "Pclass
 ```  
 
 Then you'll recieve something like the following:  
-```
+```json
 {
     "predictions": {
         "1": 1
