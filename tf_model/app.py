@@ -25,9 +25,10 @@ class Preds(Resource):
     entry_transformed = pipeline.transform(entry)
     prediction = model.predict(entry_transformed)
     res = {'predictions': {}}
+    print(prediction)
     for i in range(len(prediction)):
-      res['predictions'][i + 1] = int(prediction[i])
-    return res, 200 # {'prediction': int(prediction[0])}
+      res['predictions'][i + 1] = 1 if prediction[i] >= 0.5 else 0
+    return res, 200
 
 api.add_resource(Preds, '/predict')
 
