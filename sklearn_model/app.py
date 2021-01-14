@@ -4,12 +4,13 @@ from flask import Flask, request
 from flask_restful import Api, Resource
 from sklearn.externals import joblib
 import pandas as pd
+import pickle
 
 app = Flask(__name__)
 api = Api(app)
 
-model = joblib.load('model.pkl')
-pipeline = joblib.load('pipeline.pkl')
+model = pickle.load(open('model.pkl', 'rb'))
+pipeline = pickle.load(open('pipeline.pkl', 'rb'))
 
 def islist(obj):
   return True if ("list" in str(type(obj))) else False
